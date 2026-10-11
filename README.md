@@ -10,4 +10,6 @@ Ana sayfada Bludit içerikleri ürün ve portfolyo kartları olarak listelenir. 
 
 ## Alt bilgi iletişim alanları
 
-Alt bilgiye e-posta, telefon ve adres eklemek için `contact.php` dosyasındaki `email`, `phone` ve `address` değerlerini düzenleyin. Boş bırakılan alanlar ziyaretçilere gösterilmez. E-posta ve telefon bağlantıya dönüştürülür.
+Alt bilgiye e-posta, telefon ve adres eklemek için `contact.php` dosyasındaki `email`, `phone` ve `address` değerlerini düzenleyin. Sosyal hesap bağlantılarını `social` dizisinde platform adı ve URL ile tanımlayın; yeni platformlar ekleyebilir, boş olanları bırakabilirsiniz. Yalnızca geçerli HTTP/HTTPS sosyal bağlantıları gösterilir.
+
+Telif hakkı metnini `copyright` alanında özelleştirin. Alan boş bırakıldığında geçerli yıl ve site adı otomatik gösterilir. E-posta ve telefon bağlantıya dönüştürülür.

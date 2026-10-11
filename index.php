@@ -9,6 +9,23 @@ $contact = require __DIR__ . '/contact.php';
 $contactEmail = filter_var($contact['email'] ?? '', FILTER_VALIDATE_EMAIL);
 $contactPhone = preg_replace('/[^0-9+().\-\s]/', '', (string) ($contact['phone'] ?? ''));
 $contactAddress = trim((string) ($contact['address'] ?? ''));
+$socialLinks = [];
+$socialAccounts = is_array($contact['social'] ?? null) ? $contact['social'] : [];
+foreach ($socialAccounts as $socialName => $socialUrl) {
+    if (!is_string($socialName) || trim($socialName) === '' || !is_string($socialUrl)) {
+        continue;
+    }
+
+    $socialUrl = filter_var($socialUrl, FILTER_VALIDATE_URL);
+    $socialScheme = $socialUrl ? strtolower((string) parse_url($socialUrl, PHP_URL_SCHEME)) : '';
+    if ($socialUrl && in_array($socialScheme, ['http', 'https'], true)) {
+        $socialLinks[trim($socialName)] = $socialUrl;
+    }
+}
+$copyright = trim((string) ($contact['copyright'] ?? ''));
+if ($copyright === '') {
+    $copyright = '© ' . date('Y') . ' ' . $site->title();
+}
 $staticPages = isset($staticContent) && is_array($staticContent) ? $staticContent : [];
 $contentPages = isset($content) && is_array($content) ? $content : [];
 $siteTitle = $site->title();
@@ -131,7 +148,17 @@ $isHome = ($WHERE_AM_I ?? 'home') === 'home';
                     <?php endif; ?>
                 </section>
             <?php endif; ?>
-            <p class="copyright">&copy; <?php echo date('Y'); ?> <?php echo businessThemeEscape($siteTitle); ?></p>
+            <?php if ($socialLinks): ?>
+                <section class="footer-social" aria-labelledby="social-title">
+                    <h2 id="social-title">Bizi takip edin</h2>
+                    <ul>
+                        <?php foreach ($socialLinks as $socialName => $socialUrl): ?>
+                            <li><a href="<?php echo businessThemeEscape($socialUrl); ?>"><?php echo businessThemeEscape($socialName); ?></a></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </section>
+            <?php endif; ?>
+            <p class="copyright"><?php echo businessThemeEscape($copyright); ?></p>
         </div>
     </footer>
     <?php Theme::plugins('siteBody'); ?>

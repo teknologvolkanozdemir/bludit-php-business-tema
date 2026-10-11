@@ -241,6 +241,20 @@ h3 {
     font-size: 1.1rem;
 }
 
+.footer-social h2 {
+    margin: 0 0 .75rem;
+    font-size: 1.1rem;
+}
+
+.footer-social ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
 .copyright {
     align-self: end;
     margin: 0;
